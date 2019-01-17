@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MoveInCameraDirection : MonoBehaviour {
+
+    public Transform camPivot;
+    float heading = 0; //Acts as the y axis
+    public Transform cam;
+
+    Vector2 input;
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        heading += Input.GetAxis("Mouse X") * Time.deltaTime * 180; //Sets the speed that the camera will rotate at (set at 180)
+        camPivot.rotation = Quaternion.Euler(0, heading, 0);
+
+        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //Gets the horizontal and vertical axis
+        input = Vector2.ClampMagnitude(input, 1);
+
+        Vector3 camF = cam.forward; //Forward direction
+        Vector3 camR = cam.right; //Right direction
+
+        camF.y = 0;
+        camR.y = 0;
+        camF = camF.normalized; //normalize the camF vector
+        camR = camR.normalized;//normalize the camR vector
+        transform.position += (camF * input.y + camR * input.x) * Time.deltaTime * 5; //Sets how the player will move and at what speed
+    }
+}
