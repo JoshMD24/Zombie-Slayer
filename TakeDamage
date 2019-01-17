@@ -1,0 +1,20 @@
+using UnityEngine;
+
+public class DamageTaken : MonoBehaviour
+{
+    public float health = 50f; //creating a health variable and setting it to 50
+
+    public void TakeDamage (float amount)
+    {
+        health -= amount; //Take the amount of damage set in the gun
+
+        if (health <= 0f) //When health is 0 the enemy will die
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+}
