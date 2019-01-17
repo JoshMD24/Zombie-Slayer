@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class FollowPlayer : MonoBehaviour
+{
+    public float lookRadius = 10f;
+
+    Transform target; //Allows the AI to see if the player is in its radius
+    NavMeshAgent agent;
+	
+	void Start ()
+    {
+        target = TrackPlayer.instance.player.transform; //sets the target to the one selected in the track player script
+        agent = GetComponent<NavMeshAgent>(); // gets the component for agent
+	}
+	
+	
+	void Update ()
+    {
+        float distance = Vector3.Distance(target.position, transform.position); //Gets the distance from the enemy to the player
+
+        if (distance <= lookRadius) //If the distance bettwen our player and enemy is in the look radius it will start chasing 
+        {
+            agent.SetDestination(target.position); //Send the AI the players position
+        }
+	}
+  void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+}
