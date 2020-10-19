@@ -6,7 +6,7 @@ public class Shooting : MonoBehaviour
     public float damage = 10f; //The amount of damage each shot does
     public float range = 100f; //the range the bullet can travel
 
-    public Camera fpsCam;
+    public Camera fpsCam; //Sets the camera
 
 	// Update is called once per frame
 	void Update ()
